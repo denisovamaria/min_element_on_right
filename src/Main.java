@@ -35,14 +35,38 @@ public class Main {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (matrix[i][j] < minimum) {
+                if (matrix[i][j] <= minimum) {
                     minimum = matrix[i][j];
                     row = i;
                     column = j;
                 }
             }
         }
-        System.out.println(row + 1);
-        System.out.print(column + 1);
+        int[] buf_row = new int[m];
+        int[] buf_column = new int[n];
+
+        System.arraycopy(matrix[row], 0, buf_row, 0, m);
+
+        for (int i = 0; i < m; i++) {
+            matrix[row][i] = matrix[n - 1][i];
+            matrix[n - 1][i] = buf_row[i];
+        }
+
+        for (int i = 0; i < n; i++) {
+            buf_column[i] = matrix[i][column];
+        }
+
+        for (int i = 0; i < n; i++) {
+            matrix[i][column] = matrix[i][m - 1];
+            matrix[i][m - 1] = buf_column[i];
+        }
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+
     }
 }
