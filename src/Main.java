@@ -42,15 +42,13 @@ public class Main {
                 }
             }
         }
-        int[] buf_row = new int[m];
+        int[] buf_row;
         int[] buf_column = new int[n];
 
-        System.arraycopy(matrix[row], 0, buf_row, 0, m);
 
-        for (int i = 0; i < m; i++) {
-            matrix[row][i] = matrix[n - 1][i];
-            matrix[n - 1][i] = buf_row[i];
-        }
+        buf_row = matrix[row];
+        matrix[row] = matrix[n-1];
+        matrix[n-1]=buf_row;
 
         for (int i = 0; i < n; i++) {
             buf_column[i] = matrix[i][column];
